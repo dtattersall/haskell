@@ -1,0 +1,2 @@
+fibslist = [1,1,2,3,5,8]
+answer = foldl (\x y -> if (even y) then x+y else x) 0 fibslist
