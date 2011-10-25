@@ -1,6 +1,7 @@
--- I believe this works, however it seems to take a really long time on my box
--- so I can't confirm it. It does compile though
-findlcm target (curr:rest) 
-    | 0 == sum [mod curr x | x <- target] = curr
-    | otherwise                           = findlcm target rest
-answer = findlcm [1..20] [1..]
+-- divides evenly into a range is really just a "find the lcm" for a set of numbers.
+-- It turns out haskell already has an lcm function. In addition, lcm is associative...
+
+findlcm [] = 1
+findlcm (x:xs) = lcm x (findlcm xs)
+
+answer = findlcm [1..20]
