@@ -1,12 +1,11 @@
-findPalindrome :: (Integral t) => [t] -> [t] -> t
-findPalindrome left right
-    | left == [] || right == []  = -1
-    | isPalindrome(llast*rlast)  = llast*rlast
-    | llast > rlast              = findPalindrome (init left) right
-    | otherwise                  = findPalindrome left (init right)
-    where 
-        llast = last left
-        rlast = last right
-        isPalindrome x = (show x) == reverse (show x)
+isNotPalindrome :: Show a => a -> Bool
+isNotPalindrome x = (show x) /= reverse (show x)
 
-answer = findPalindrome [100..999] [100..999]
+processlst :: Int -> [Int] -> Int
+processlst currmax productlst =
+    let palindromelst = (dropWhile (isNotPalindrome) (takeWhile (>currmax) productlst))
+    in (if length palindromelst == 0 then currmax else max currmax (head palindromelst))
+
+startlst = reverse [100..999]
+mainlst = map (\x -> (map (x*) startlst)) startlst
+answer = foldl processlst 0 mainlst
